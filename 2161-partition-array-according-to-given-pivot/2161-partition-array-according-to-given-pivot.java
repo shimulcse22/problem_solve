@@ -1,30 +1,8 @@
 class Solution {
-    public int[] pivotArray(int[] n, int pivot) {
-        int len = n.length;
-        int res [] = new int[len];
-        int j = 0;
-        
-        for(int i = 0; i<len ; i++){
-            if(n[i] < pivot){
-                res[j] = n[i];
-                j++;
-            }
-        }
-
-        for(int i = 0; i<len ; i++){
-            if(n[i] == pivot){
-                res[j] = n[i];
-                j++;
-            }
-        }
-        
-        for(int i = 0; i<len ; i++){
-            if(n[i] > pivot){
-                res[j] = n[i];
-                j++;
-            }
-        }
-        
-        return res;
+    public int[] pivotArray(int[] nums, int pivot) {
+        return Stream.of(Arrays.stream(nums).filter(e -> e < pivot),
+                Arrays.stream(nums).filter(e -> e == pivot),
+                Arrays.stream(nums).filter(e -> e > pivot))
+                .flatMapToInt(x -> x).toArray();
     }
 }
