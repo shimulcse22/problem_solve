@@ -1,10 +1,19 @@
 class Solution {
     public int maxWidthOfVerticalArea(int[][] points) {
-        Arrays.sort(points,(a, b) -> Integer.compare(a[0],b[0]));
+        Set<Integer> s = new TreeSet();
+        
+        for(int a [] : points){
+            s.add(a[0]);
+        }
+    
         int res = 0;
-        int len = points.length;
-        for(int i = 1; i< len ; i++){
-            res = Math.max(res, points[i][0] - points[i-1][0]);
+        int prevX = Integer.MIN_VALUE;
+        
+        for(int x : s){
+            if(prevX != Integer.MIN_VALUE){
+                res = Math.max(res, x - prevX);
+            }
+            prevX = x;
         }
         
         return res;
